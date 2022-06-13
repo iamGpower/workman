@@ -1,0 +1,23 @@
+{
+	"name": "workman",
+	"version": "1.0.0",
+	"description": "Workman backend API",
+	"main": "server.js",
+	"scripts": {
+		"start": "NODE_ENV=production node server",
+		"dev": "nodemon server"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/iamGpower/workman.git"
+	},
+	"keywords": [
+		"nodeJS, API"
+	],
+	"author": "iamGP",
+	"license": "MIT",
+	"dependencies": {
+		"dotenv": "^16.0.1",
+		"express": "^4.18.1"
+	}
+}
