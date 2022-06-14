@@ -2,7 +2,9 @@
 // @route   GET /api/v1/workshops
 // @access  Public
 exports.getWorkshops = (req, res, next) => {
-	res.status(200).json({ success: true, msg: `Display all workshops` });
+	res
+		.status(200)
+		.json({ success: true, msg: `Display all workshops`, greet: req.greet });
 };
 
 // @desc    Get single workshop

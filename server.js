@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const morgan = require('morgan');
 
 // Route files
 const workshops = require('./routes/workshops');
@@ -10,6 +11,11 @@ dotenv.config({
 });
 
 const app = express();
+
+// Dev logging middleware
+if (process.env.NODE_ENV === 'development') {
+	app.use(morgan('dev'));
+}
 
 // Initialize routers
 app.use('/api/v1/workshops', workshops);
