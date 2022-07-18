@@ -1,3 +1,4 @@
+const Workshop = require('../models/Workshop');
 // @desc    Get all workshops
 // @route   GET /api/v1/workshops
 // @access  Public
