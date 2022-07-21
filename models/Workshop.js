@@ -34,11 +34,11 @@ const WorkshopSchema = new mongoose.Schema({
 		type: {
 			type: String,
 			enum: ['point'],
-			required: true,
+			// required: true,
 		},
 		coordinates: {
 			type: [Number],
-			required: true,
+			// required: true,
 			index: '2dsphere',
 		},
 		formattedAddress: String,
@@ -53,8 +53,8 @@ const WorkshopSchema = new mongoose.Schema({
 		required: true,
 		enum: [
 			'Painter',
-			'Auto Mechanic',
-			'Auto Electrician',
+			'Auto-Mechanic',
+			'Auto-Electrician',
 			'Electrician',
 			'Barber',
 			'Hair Stylist',

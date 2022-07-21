@@ -1,43 +1,76 @@
 const Workshop = require('../models/Workshop');
+
 // @desc    Get all workshops
 // @route   GET /api/v1/workshops
 // @access  Public
-exports.getWorkshops = (req, res, next) => {
-	res
-		.status(200)
-		.json({ success: true, msg: `Display all workshops`, greet: req.greet });
+exports.getWorkshops = async (req, res, next) => {
+	try {
+		const workshops = await Workshop.find();
+		res
+			.status(200)
+			.json({ success: true, count: workshops.length, data: workshops });
+	} catch (error) {
+		res.status(400).json({ success: false });
+	}
 };
 
 // @desc    Get single workshop
 // @route   GET /api/v1/workshops/:id
 // @access  Public
-exports.getWorkshop = (req, res, next) => {
-	res
-		.status(200)
-		.json({ success: true, msg: `Display workshop ${req.params.id}` });
+exports.getWorkshop = async (req, res, next) => {
+	try {
+		const workshop = await Workshop.findById(req.params.id);
+		if (!workshop) {
+			return res.status(400).json({ success: false });
+		}
+		res.status(200).json({ success: true, data: workshop });
+	} catch (error) {
+		res.status(200).json({ success: false });
+	}
 };
 
 // @desc    Create new workshop
 // @route   POST /api/v1/workshops
 // @access  Private
-exports.createWorkshop = (req, res, next) => {
-	res.status(200).json({ success: true, msg: 'Create new workshop' });
+exports.createWorkshop = async (req, res, next) => {
+	try {
+		const workshop = await Workshop.create(req.body);
+		res.status(201).json({ success: true, data: workshop });
+	} catch (error) {
+		res.status(400).json({ success: false });
+	}
 };
 
 // @desc    Update workshop
 // @route   PUT /api/v1/workshops/:id
 // @access  Private
-exports.updateWorkshop = (req, res, next) => {
-	res
-		.status(200)
-		.json({ success: true, msg: `Update workshop ${req.params.id}` });
+exports.updateWorkshop = async (req, res, next) => {
+	try {
+		const workshop = await Workshop.findByIdAndUpdate(req.params.id, req.body, {
+			new: true,
+			runValidators: true,
+		});
+		if (!workshop) {
+			return res.status(400).json({ success: false });
+		}
+		res.status(200).json({ success: true, data: workshop });
+	} catch (error) {
+		res.status(400).json({ success: false });
+	}
 };
 
 // @desc    Delete workshop
 // @route   DELETE /api/v1/workshops/:id
 // @access  Private
-exports.deleteWorkshop = (req, res, next) => {
-	res
-		.status(200)
-		.json({ success: true, msg: `Remove workshop ${req.params.id}` });
+exports.deleteWorkshop = async (req, res, next) => {
+	try {
+		const workshop = await Workshop.findByIdAndDelete(req.params.id);
+
+		if (!workshop) {
+			return res.status(400).json({ success: false });
+		}
+		res.status(200).json({ success: true, data: {} });
+	} catch (error) {
+		res.status(400).json({ success: false });
+	}
 };
